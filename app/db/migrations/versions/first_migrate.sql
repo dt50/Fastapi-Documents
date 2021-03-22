@@ -1,0 +1,17 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(20) UNIQUE,
+    fullname VARCHAR(50),
+    email VARCHAR(50) UNIQUE,
+    hashed_password CHARACTER VARYING,
+    created_at TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE IF NOT EXISTS files (
+    id SERIAL PRIMARY KEY,
+    file_path CHARACTER VARYING,
+    user_create VARCHAR(20),
+    created_at TIMESTAMP WITHOUT TIME ZONE
+);
