@@ -2,8 +2,8 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(20) UNIQUE,
-    fullname VARCHAR(50),
+    user_name VARCHAR(20) UNIQUE,
+    full_name VARCHAR(50),
     email VARCHAR(50) UNIQUE,
     hashed_password CHARACTER VARYING,
     created_at TIMESTAMP WITHOUT TIME ZONE
