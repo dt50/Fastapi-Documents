@@ -19,8 +19,8 @@ class UsersRepository(BaseRepository):
             async with self.connection.transaction():
                 user_row = await queries.create_user(
                     self.connection,
-                    username=user_name,
-                    fullname=full_name,
+                    user_name=user_name,
+                    full_name=full_name,
                     email=email,
                     password=password
                 )
@@ -28,12 +28,13 @@ class UsersRepository(BaseRepository):
             raise EntityAlreadyExist('user with login={0} already exists'.format(user_name))
         return UserOut(**dict(user_row))
 
-    async def get_user_id(self, *, user_name: str, password: str) -> UserOut:
-        user_row = await queries.get_user_id(
+    async def get_user(self, *, user_name: str, password: str) -> UserOut:
+        user_row = await queries.get_user(
             self.connection,
-            username=user_name,
+            user_name=user_name,
             password=password
         )
+        print(user_row)
         if user_row:
             return UserOut(**dict(user_row))
 

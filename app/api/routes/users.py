@@ -11,7 +11,7 @@ router = APIRouter()
 async def create_user(
         user: UserReg,
         users_repo: UsersRepository = Depends(get_repository(UsersRepository))
-):
+) -> UserOut:
     try:
         users_row = await users_repo.create_user(
             user_name=user.user_name,
@@ -21,4 +21,16 @@ async def create_user(
         )
     except (SimplePassword, EntityAlreadyExist) as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+    return users_row
+
+
+@router.post("/get-user/", response_model=UserOut, name="users:get-user")
+async def get_user(
+        user: UserIn,
+        users_repo: UsersRepository = Depends(get_repository(UsersRepository))
+) -> UserOut:
+    users_row = await users_repo.get_user(
+        user_name=user.user_name,
+        password=user.password
+    )
     return users_row

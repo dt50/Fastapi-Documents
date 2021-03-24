@@ -1,22 +1,22 @@
 -- name: create-user^
 INSERT INTO users
-(username, fullname, email, hashed_password, created_at)
+(user_name, full_name, email, hashed_password, created_at)
 VALUES (
-    :username,
-    :fullname,
+    :user_name,
+    :full_name,
     :email,
     crypt(
         :password,
         gen_salt('bf', 8)
     ),
     now()
-)RETURNING id, username, fullname;
+)RETURNING id, user_name, full_name;
 
---name: get-user-id^
-SELECT id, username, fullname
+--name: get-user^
+SELECT id, user_name, full_name
 FROM users
 WHERE
-    login = :login
+    user_name = :user_name
     AND
     hashed_password = crypt(
         :password,
