@@ -25,7 +25,7 @@ class UsersRepository(BaseRepository):
                     password=password
                 )
         except asyncpg.exceptions.UniqueViolationError:
-            raise EntityAlreadyExist('user with login={0} already exists'.format(user_name))
+            raise EntityAlreadyExist('user with login={0} or email={1} already exists'.format(user_name, email))
         return UserOut(**dict(user_row))
 
     async def get_user(self, *, user_name: str, password: str) -> UserOut:
