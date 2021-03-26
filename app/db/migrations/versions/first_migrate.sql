@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS files (
     id SERIAL PRIMARY KEY,
     file_path CHARACTER VARYING,
-    user_create VARCHAR(20),
+    user_name VARCHAR(20),
     created_at TIMESTAMP WITHOUT TIME ZONE
 );
